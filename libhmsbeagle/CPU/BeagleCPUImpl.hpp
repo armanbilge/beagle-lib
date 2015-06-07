@@ -791,6 +791,18 @@ int BeagleCPUImpl<BEAGLE_CPU_GENERIC>::updateTransitionMatrices(int eigenIndex,
 }
 
 BEAGLE_CPU_TEMPLATE
+int BeagleCPUImpl<BEAGLE_CPU_GENERIC>::updateParameterDifferentiatedTransitionMatrices(int eigenIndex,
+                                                                                       int derivativeMatrixIndex,
+                                                                                       const int* probabilityIndices,
+                                                                                       const double* edgeLengths,
+                                                                                       int count) {
+    gEigenDecomposition->updateParameterDifferentiatedTransitionMatrices(eigenIndex,derivativeMatrixIndex,probabilityIndices,
+                                                  edgeLengths,gCategoryRates,gTransitionMatrices,count);
+    return BEAGLE_SUCCESS;
+}
+
+
+BEAGLE_CPU_TEMPLATE
 int BeagleCPUImpl<BEAGLE_CPU_GENERIC>::updatePartials(const int* operations,
                                   int count,
                                   int cumulativeScaleIndex) {

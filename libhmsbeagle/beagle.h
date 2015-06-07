@@ -524,6 +524,30 @@ BEAGLE_DLLEXPORT int beagleUpdateTransitionMatrices(int instance,
                                    int count);
 
 /**
+ * @brief Calculate a list of parameter-differentiated transition probability matrices
+ *
+ * This function calculates a list of transition probabilities matrices differentiated with respect
+ * to a substitution model parameter.
+ *
+ * @param instance                  Instance number (input)
+ * @param eigenIndex                Index of eigen-decomposition buffer (input)
+ * @param derivativeMatrixIndex     Index of derivative of infinitesimal generator matrix with respect
+ *                                    to parameter
+ * @param probabilityIndices        List of indices of transition probability matrices to update
+ *                                   (input)
+ * @param edgeLengths               List of edge lengths with which to perform calculations (input)
+ * @param count                     Length of lists
+ *
+ * @return error code
+ */
+BEAGLE_DLLEXPORT int beagleUpdateParameterDifferentiatedTransitionMatrices(int instance,
+                                   int eigenIndex,
+                                   int derivativeMatrixIndex,
+                                   const int* probabilityIndices,
+                                   const double* edgeLengths,
+                                   int count);
+
+/**
  * @brief Set a finite-time transition probability matrix
  *
  * This function copies a finite-time transition probability matrix into a matrix buffer. This function

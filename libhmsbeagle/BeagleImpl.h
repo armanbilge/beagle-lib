@@ -115,6 +115,12 @@ public:
                                          const double* edgeLengths,
                                          int count) = 0;
     
+    virtual int updateParameterDifferentiatedMatrices(int eigenIndex,
+                                                      int derivativeMatrixIndex,
+                                                      const int* probabilityIndices,
+                                                      const double* edgeLengths,
+                                                      int count) = 0;
+
     virtual int updatePartials(const int* operations,
                                int operationCount,
                                int cumulativeScalingIndex) = 0;

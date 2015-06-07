@@ -217,6 +217,18 @@ public:
                                  const double* edgeLengths,
                                  int count);
 
+    // calculate a parameter-differentiated transition probability matrices for a given list of node. This will
+    // calculate for all categories (and all matrices if more than one is being used).
+    //
+    // nodeIndices an array of node indices that require transition probability matrices
+    // edgeLengths an array of expected lengths in substitutions per site
+    // count the number of elements in the above arrays
+    int updateParameterDifferentiatedTransitionMatrices(int eigenIndex,
+                                                        int derivativeMatrixIndex,
+                                                        const int* probabilityIndices,
+                                                        const double* edgeLengths,
+                                                        int count);
+
     // calculate or queue for calculation partials using an array of operations
     //
     // operations an array of triplets of indices: the two source partials and the destination
