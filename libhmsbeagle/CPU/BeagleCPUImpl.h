@@ -93,6 +93,7 @@ protected:
     //      tipStates field should be switched to vectors of vectors (to make
     //      memory management less error prone
     REALTYPE** gPartials;
+    REALTYPE** gConditionals;
     int** gTipStates;
     REALTYPE** gScaleBuffers;
     

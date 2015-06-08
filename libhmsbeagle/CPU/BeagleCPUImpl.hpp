@@ -148,10 +148,13 @@ BeagleCPUImpl<BEAGLE_CPU_GENERIC>::~BeagleCPUImpl() {
 	for(unsigned int i=0; i<kBufferCount; i++) {
 	    if (gPartials[i] != NULL)
 		    free(gPartials[i]);
+        if (gConditionals[i] != NULL)
+            free(gConditionals[i]);
 	    if (gTipStates[i] != NULL)
 		    free(gTipStates[i]);
 	}
     free(gPartials);
+    free(gConditionals);
     free(gTipStates);
     
     if (kFlags & BEAGLE_FLAG_SCALING_AUTO) {
@@ -298,6 +301,10 @@ int BeagleCPUImpl<BEAGLE_CPU_GENERIC>::createInstance(int tipCount,
     if (gPartials == NULL)
      throw std::bad_alloc();
 
+    gConditionals = (REALTYPE**) malloc(sizeof(REALTYPE*) * kBufferCount);
+    if (gConditionals == NULL)
+     throw std::bad_alloc();
+
     gStateFrequencies = (REALTYPE**) calloc(sizeof(REALTYPE*), kEigenDecompCount);
     if (gStateFrequencies == NULL)
         throw std::bad_alloc();
@@ -314,12 +321,19 @@ int BeagleCPUImpl<BEAGLE_CPU_GENERIC>::createInstance(int tipCount,
 
     for (int i = 0; i < kBufferCount; i++) {
         gPartials[i] = NULL;
+        gConditionals[i] = NULL;
         gTipStates[i] = NULL;
     }
 
     for (int i = kTipCount; i < kBufferCount; i++) {
         gPartials[i] = (REALTYPE*) mallocAligned(sizeof(REALTYPE) * kPartialsSize);
         if (gPartials[i] == NULL)
+            throw std::bad_alloc();
+    }
+
+    for (int i = 0; i < kBufferCount; i++) {
+        gConditionals[i] = (REALTYPE*) mallocAligned(sizeof(REALTYPE) * kPartialsSize);
+        if (gConditionals[i] == NULL)
             throw std::bad_alloc();
     }
 
